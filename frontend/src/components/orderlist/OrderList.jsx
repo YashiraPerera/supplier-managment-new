@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import jsPDF from 'jspdf'; 
-import './orderList.css';
-import ViewOrder from './ViewOrder'; 
+import './orderlist.css';
+import ViewOrder from '../vieworder/ViewOrder'; 
 import 'jspdf-autotable';
 
 

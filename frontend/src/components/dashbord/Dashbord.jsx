@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css';
+import './dashbord.css';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({

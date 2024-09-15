@@ -8,6 +8,12 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Slightly more prominent shadow for depth */
     transition: box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
   }
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+  
   
   .register-supplier-container:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Elevate the form on hover */

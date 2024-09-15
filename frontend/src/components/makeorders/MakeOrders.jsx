@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './makeOrder.css';
+import './makeorder.css';
 
 const MakeOrder = () => {
   const [supplierName, setSupplierName] = useState('');
