@@ -4,11 +4,10 @@ import './makeorder.css';
 const MakeOrder = () => {
   const [supplierName, setSupplierName] = useState('');
   const [orderDate, setOrderDate] = useState('');
-  const [items, setItems] = useState([{ itemName: '', quantity: 1, description: '' }]);
+  const [items, setItems] = useState([{ itemName: '', quantity: 1, description: '', itemError: '' }]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [suppliers, setSuppliers] = useState([]);
-
 
   useEffect(() => {
     const fetchSuppliers = async () => {
@@ -25,12 +24,25 @@ const MakeOrder = () => {
   }, []);
 
   const handleAddItem = () => {
-    setItems([...items, { itemName: '', quantity: 1, description: '' }]);
+    setItems([...items, { itemName: '', quantity: 1, description: '', itemError: '' }]);
   };
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...items];
-    newItems[index][field] = value;
+
+    if (field === 'itemName') {
+      // Allow only letters in the item name field
+      const lettersOnly = /^[A-Za-z\s]*$/;
+      if (!lettersOnly.test(value)) {
+        newItems[index].itemError = 'Enter only letters.';
+      } else {
+        newItems[index].itemError = ''; // Clear error message if valid
+        newItems[index][field] = value; // Update the item name only if it's valid
+      }
+    } else {
+      newItems[index][field] = value;
+    }
+
     setItems(newItems);
   };
 
@@ -42,7 +54,7 @@ const MakeOrder = () => {
     const orderData = {
       supplierName,
       orderDate,
-      items,
+      items: items.map(({ itemError, ...rest }) => rest), // Exclude itemError from the data sent to the server
     };
 
     try {
@@ -58,7 +70,7 @@ const MakeOrder = () => {
         setMessage('Order created successfully!');
         setSupplierName('');
         setOrderDate('');
-        setItems([{ itemName: '', quantity: 1, description: '' }]); 
+        setItems([{ itemName: '', quantity: 1, description: '', itemError: '' }]); 
       } else {
         setMessage('Error creating order');
       }
@@ -128,6 +140,8 @@ const MakeOrder = () => {
                 required
               />
             </div>
+            {item.itemError && <p className="error-message">{item.itemError}</p>} {/* Error message for invalid item name */}
+            
             {/* Second Row - Description */}
             <div className="description-row">
               <input
