@@ -7,6 +7,7 @@ import Sidebar from './components/sidebar/SideBar';
 import Header from './components/header/Header'; // Import the Header component
 import Footer from './components/footer/Footer'; // Import the Footer component
 import RegisterSupplier from './components/registerSupplier/RegisterSupplier';
+import FinanceUserInterface from './components/financeInterface/FinanceUserInterface';
 
 import './App.css';
 
@@ -14,11 +15,14 @@ import './App.css';
 function App() {
   return (
     <Router>
+      
       <div className="app-container">
         
         {/* Header */}
         <Header />
-
+          <Routes>
+          <Route path="/" element={<FinanceUserInterface />} />
+          </Routes>
         <div className="content-container">
           {/* Sidebar */}
           <Sidebar />
@@ -26,7 +30,8 @@ function App() {
           {/* Main Content Area */}
           <div className="main-content">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              
+              <Route path="/dashbord" element={<Dashboard />} />
               <Route path="/make-order" element={<MakeOrder />} />
               <Route path="/order-list" element={<OrderList />} />
               <Route path="/supplier" element={<RegisterSupplier />} />
